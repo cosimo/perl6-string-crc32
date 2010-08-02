@@ -43,8 +43,6 @@ method crc32 (Str $c) {
 
     my $crcinit = 0;
     my $crc = $crcinit +^ 0xFFFFFFFF;
-        
-    say 'Init crc calc.';
 
     for $c.split('') {
         my $char = $_.ord;

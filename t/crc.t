@@ -19,5 +19,15 @@ is(
     "Test the CRC of an awesome string",
 );
 
+
+# TODO fails because Buf.split() not implemented
+
+## Test type Buf
+#my $buf1 = $string1.encode("UTF-8");
+#is(
+#    String::CRC32.crc32($buf1), 1835534707,
+#    "Test the CRC of a Buf variable",
+#);
+
 done_testing;
 
