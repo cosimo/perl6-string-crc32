@@ -29,5 +29,5 @@ is(
 #    "Test the CRC of a Buf variable",
 #);
 
-done_testing;
+done;
 

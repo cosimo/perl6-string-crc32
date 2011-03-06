@@ -5,5 +5,5 @@ use String::CRC32;
 
 ok(1, 'Module is loaded');
 
-done_testing;
+done;
 
