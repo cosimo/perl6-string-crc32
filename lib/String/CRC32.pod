@@ -9,8 +9,14 @@ String::CRC32 - Calculate 32-bit CRC checksum of strings
     use v6;
     use String::CRC32;
 
+    # CRC of a string
     my $string = 'Hello, world';
-    my $crc32 = String::CRC32.crc32($string);
+    my $crc32 = String::CRC32::crc32($string);
+
+    # CRC of a filehandle
+    my $fh = open("myfile", :bin, :r);
+    $crc32 = String::CRC32::crc32($fh);
+    $fh.close();
 
 =head1 DESCRIPTION
 
@@ -30,9 +36,23 @@ Example:
     use String::CRC32;
 
     my $string = 'Hello, world';
-    say String::CRC32.crc32($string);
+    say String::CRC32::crc32($string);
 
     # prints '3885672898'
+
+=head2 C<crc32($fh)>
+
+Reads the whole file and calculates the CRC of
+that file.
+
+Example:
+
+    use v6;
+    use String::CRC32;
+
+    my $fh = open("myfile.txt", :bin, :r);
+    say String::CRC32::crc32($fh);
+    $fh.close();
 
 =head1 AUTHOR
 
