@@ -39,7 +39,8 @@ my @CRC_TABLE =
 0xbdbdf21c, 0xcabac28a, 0x53b39330, 0x24b4a3a6, 0xbad03605, 0xcdd70693, 0x54de5729, 0x23d967bf,
 0xb3667a2e, 0xc4614ab8, 0x5d681b02, 0x2a6f2b94, 0xb40bbe37, 0xc30c8ea1, 0x5a05df1b, 0x2d02ef8d;
 
-our multi sub crc32 (Str $s) {
+our proto sub crc32($) {*}
+multi sub crc32 (Str $s) {
     my $crcinit = 0;
     my $crc = $crcinit +^ 0xFFFFFFFF;
 
@@ -53,12 +54,12 @@ our multi sub crc32 (Str $s) {
     return $crc;
 }
 
-our multi sub crc32 (Buf $b) {
+multi sub crc32 (Buf $b) {
     my Str $s = $b.decode('UTF-8');
     return crc32($s);
 }
 
-our multi sub crc32 (IO $fh) {
+multi sub crc32 (IO $fh) {
     my Str $s = $fh.slurp();
     return crc32($s);
 }
