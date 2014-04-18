@@ -33,5 +33,13 @@ is(
     "Test the CRC of a file handle"
 );
 
+# Test a Buf made of invalid UTF8
+my $buf2 = Buf.new(0xff);
+is(
+    String::CRC32::crc32($buf2), 4278190080,
+    "Test the CRC of a Buf containing invalid utf8"
+);
+
+
 done;
 
