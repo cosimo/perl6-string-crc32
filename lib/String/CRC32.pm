@@ -40,12 +40,11 @@ my @CRC_TABLE =
 0xb3667a2e, 0xc4614ab8, 0x5d681b02, 0x2a6f2b94, 0xb40bbe37, 0xc30c8ea1, 0x5a05df1b, 0x2d02ef8d;
 
 our proto sub crc32($) {*}
-multi sub crc32 (Str $s) {
+multi sub crc32 (Blob $b) {
     my $crcinit = 0;
     my $crc = $crcinit +^ 0xFFFFFFFF;
 
-    for $s.split('') {
-        my $char = $_.ord;
+    for $b.list -> $char {
         $crc = (($crc +> 8) +& 0x00FFFFFF) +^ @CRC_TABLE[ ($crc +^ $char) +& 0xFF ];
     }
 
@@ -54,9 +53,9 @@ multi sub crc32 (Str $s) {
     return $crc;
 }
 
-multi sub crc32 (Buf $b) {
-    my Str $s = $b.decode('UTF-8');
-    return crc32($s);
+multi sub crc32 (Str $s) {
+    my Blob $b = $s.encode('UTF-8');
+    return crc32($b);
 }
 
 multi sub crc32 (IO $fh) {
