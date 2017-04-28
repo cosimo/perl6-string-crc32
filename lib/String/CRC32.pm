@@ -59,7 +59,7 @@ multi sub crc32 (Str $s) {
 }
 
 multi sub crc32 (IO::Handle $fh) {
-    my Str $s = $fh.slurp;
+    my $s = $fh.slurp;
     $fh.close;
     return crc32($s);
 }
