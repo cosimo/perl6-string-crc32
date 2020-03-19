@@ -42,9 +42,11 @@ my @CRC_TABLE =
 our proto sub crc32($) {*}
 multi sub crc32 (Blob $b) {
     my $crcinit = 0;
-    my $crc = $crcinit +^ 0xFFFFFFFF;
+    my int $crc = $crcinit +^ 0xFFFFFFFF;
 
-    for $b.list -> $char {
+    my $length = $b.elems;
+    loop (my $i = 0; $i < $length; $i++) {
+        my int $char = $b[$i];
         $crc = (($crc +> 8) +& 0x00FFFFFF) +^ @CRC_TABLE[ ($crc +^ $char) +& 0xFF ];
     }
 
